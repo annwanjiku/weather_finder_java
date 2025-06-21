@@ -6,12 +6,25 @@ import java.awt.event.ActionListener;
 public class Main{
     public static void main(String[] args){
 
+        ImageIcon backgroundImage = new ImageIcon("src/weatherimage.jpg");
+        Image bg = backgroundImage.getImage();
+
+        JPanel backgroundPanel = new JPanel(){
+            @Override
+            protected void paintComponent( Graphics g){
+                super.paintComponent(g);
+                g.drawImage(bg,0,0,getWidth(),getHeight(),this);
+            }
+        };
+        backgroundPanel.setLayout(new BorderLayout());
+
         JFrame frame = new JFrame("Weather Finder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,250);
-        frame.setLayout(new BorderLayout());
+        frame.setSize(400,350);
+        frame.setContentPane(backgroundPanel);
 
         JPanel inputPanel = new JPanel(new GridLayout(5,2,10,10));
+        inputPanel.setOpaque(false);
 
         JLabel dayLabel = new JLabel("Day:");
         JTextField dayField = new JTextField();
@@ -26,6 +39,7 @@ public class Main{
         JTextField locationField = new JTextField();
 
         JPanel messagePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        messagePanel.setOpaque(false);
         JLabel messageLabel = new JLabel("");
 
         JLabel loadingIcon = new JLabel();
@@ -46,6 +60,8 @@ public class Main{
         inputPanel.add(locationField);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.setOpaque(false);
+
         JButton submitButton = new JButton("Submit");
         JButton tryAgainButton = new JButton("TryAgain");
         tryAgainButton.setVisible(false); //temporary
