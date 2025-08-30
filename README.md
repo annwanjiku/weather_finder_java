@@ -1,1 +1,1 @@
-## Java Weather Finder
+## Java weather finder
